@@ -1,0 +1,470 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Delicious food",
+      "description": "",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "",
+    "basePath": "",
+    "tags": [
+      {
+        "name": "Store",
+        "description": "API for stores"
+      },
+      {
+        "name": "User",
+        "description": "API for user"
+      },
+      {
+        "name": "Review",
+        "description": "API for review"
+      }
+    ],
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/api/store": {
+        "get": {
+          "tags": [
+            "Store"
+          ],
+          "summary": "Get all stores",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Store"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "Store"
+          ],
+          "summary": "Create store",
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "User Token (Bearer eyJh...)",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Store"
+              }
+            }
+          }
+        }
+      },
+      "/api/store/search": {
+        "get": {
+          "tags": [
+            "Store"
+          ],
+          "summary": "Search store by name",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "name",
+              "description": "In the request to transfer the name of the store (/api/store/search?name=беллучи)",
+              "example": {
+                "name": "Беллучи"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Store"
+              }
+            },
+            "404": {
+              "description": "Store not found"
+            }
+          }
+        }
+      },
+      "/api/store?sort=name": {
+        "get": {
+          "tags": [
+            "Store"
+          ],
+          "summary": "Sort stores by name",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Store"
+              }
+            }
+          }
+        }
+      },
+      "/api/store?sort=rating": {
+        "get": {
+          "tags": [
+            "Store"
+          ],
+          "summary": "Sort stores by rating descending",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Store"
+              }
+            }
+          }
+        }
+      },
+      "/api/store?sort=-rating": {
+        "get": {
+          "tags": [
+            "Store"
+          ],
+          "summary": "Sort stores by rating descending in ascending",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Store"
+              }
+            }
+          }
+        }
+      },
+      "/api/store/:id": {
+        "get": {
+          "tags": [
+            "Store"
+          ],
+          "summary": "Get store by id",
+          "parameters": [
+            {
+              "in": "params",
+              "name": "id",
+              "description": "In the request we give the id store",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Store"
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "Store"
+          ],
+          "summary": "Delete store by id",
+          "parameters": [
+            {
+              "in": "params",
+              "name": "id",
+              "description": "In the request we give the id store",
+              "required": true
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "User Token (Bearer eyJh...)",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Store"
+              }
+            }
+          }
+        },
+        "patch": {
+          "tags": [
+            "Store"
+          ],
+          "summary": "Change store",
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "User Token (Bearer eyJh...)",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Store"
+              }
+            }
+          }
+        }
+      },
+      "/api/auth/login": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Login user",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "example": {
+                "email": "kos@gmail.com",
+                "password": "123456"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "example": {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtvc..."
+              }
+            },
+            "404": {
+              "description": "User not found"
+            },
+            "401": {
+              "description": "Password do not match"
+            }
+          }
+        }
+      },
+      "/api/auth/register": {
+        "post": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Register user",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "example": {
+                "username": "Konstantin",
+                "email": "kos2@gmail.com",
+                "password": "123456"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "examples": [
+                {
+                  "_id": "5cd58245255b1e147663f731",
+                  "username": "Konstantin",
+                  "email": "kos1@gmail.com",
+                  "password": "$2a$10$9I8oEHUGIoqcQ.FjX...",
+                  "__v": 0
+                }
+              ]
+            },
+            "409": {
+              "description": "Email already exist"
+            }
+          }
+        }
+      },
+      "/api/review/": {
+        "get": {
+          "tags": [
+            "Review"
+          ],
+          "summary": "Get all reviews",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Review"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "Review"
+          ],
+          "summary": "Create review",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "example": {
+                "authorId": "5cc1680ceacc8a08d84fd75e",
+                "authorName": "Konstantin",
+                "rating": "3",
+                "storeId": "5cc1bbfeaf95be0dfed9d40f",
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "title": "Lorem ipsum"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Review"
+              }
+            }
+          }
+        }
+      },
+      "/api/review/:id": {
+        "get": {
+          "tags": [
+            "Review"
+          ],
+          "summary": "Get review by id",
+          "parameters": [
+            {
+              "in": "params",
+              "name": "id",
+              "description": "In the request we give the id review",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Review"
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "Review"
+          ],
+          "summary": "Delete review by id",
+          "parameters": [
+            {
+              "in": "params",
+              "name": "id",
+              "description": "In the request we give the id review",
+              "required": true
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "User Token (Bearer eyJh...)",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Review"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Store": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "imageSrc": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "number"
+          },
+          "rating": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Review": {
+        "properties": {
+          "created": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "storeId": {
+            "type": "string"
+          },
+          "authorId": {
+            "type": "string"
+          },
+          "authorName": {
+            "type": "string"
+          },
+          "rating": {
+            "type": "number"
+          },
+          "imageSrc": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
